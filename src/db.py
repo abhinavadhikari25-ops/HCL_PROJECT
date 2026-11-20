@@ -18,6 +18,7 @@ def get_connection(
     db_path: Union[str, Path, None] = None,
     *,
     create: bool = False,
+    read_only: bool = False,
     timeout: float = 30.0,
 ) -> sqlite3.Connection:
     """Return a SQLite connection with FK enforcement enabled.
@@ -26,6 +27,7 @@ def get_connection(
         db_path: Optional database path. Defaults to ``data/app.db``.
         create: Set True only for database generation/setup. Normal application
             code should leave this False to avoid silently creating an empty DB.
+        read_only: Set True for safe read-only queries from the application.
         timeout: SQLite lock timeout in seconds.
 
     Raises:
@@ -41,7 +43,11 @@ def get_connection(
     if create:
         path.parent.mkdir(parents=True, exist_ok=True)
 
-    conn = sqlite3.connect(str(path), timeout=timeout)
+    if read_only:
+        uri_path = f"file:{path.as_posix()}?mode=ro"
+        conn = sqlite3.connect(uri_path, uri=True, timeout=timeout)
+    else:
+        conn = sqlite3.connect(str(path), timeout=timeout)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     enabled = conn.execute("PRAGMA foreign_keys").fetchone()[0]
