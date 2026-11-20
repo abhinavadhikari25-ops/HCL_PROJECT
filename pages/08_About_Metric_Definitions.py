@@ -1,5 +1,6 @@
-﻿"""UI-08 — About & Metric Definitions: Project provenance, KPI definitions, and governance."""
+"""UI-08 — About & Metric Definitions: Project provenance, KPI definitions, and governance."""
 import streamlit as st
+import pandas as pd
 from src.ui import render_header
 
 st.set_page_config(page_title="About & Definitions | Hospital Resource Utilization", page_icon="ℹ️", layout="wide")
