@@ -23,9 +23,10 @@ with col_left:
     st.markdown("""
     - **Student Name:** Abhinav Adhikari
     - **Roll Number:** 2503201450005
-    - **Degree:** Master of Computer Applications (MCA) — 2nd Year
     - **Specialization:** Data Analytics
+    - **Mentor:** Kalpana Diwedi
     - **Institution:** ABES Engineering College
+    - **Live App:** [https://hclproject-ebsretccjs53f8djpfzvkb.streamlit.app/](https://hclproject-ebsretccjs53f8djpfzvkb.streamlit.app/)
     - **Document Baseline:** HRA-001-BUILD-14 (November 2026)
     """)
 
