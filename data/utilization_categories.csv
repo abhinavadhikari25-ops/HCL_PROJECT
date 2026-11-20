@@ -1,0 +1,8 @@
+﻿category_id,category_code,category_name,category_group,unit_of_measure,active_flag,description
+1,BED_CAPACITY,Usable bed capacity,BED,BED_DAY,1,Daily usable beds and occupied beds for each department.
+2,DOCTOR,Doctors,STAFF,HOURS,1,Available and assigned doctor hours per department/day.
+3,NURSE,Nurses,STAFF,HOURS,1,Available and assigned nursing hours per department/day.
+4,TECHNICIAN,Technicians,STAFF,HOURS,1,Available and assigned technician hours per department/day.
+5,ICU_VENTILATOR,ICU ventilators,RESOURCE,HOURS,1,Available and used ventilator-hours per department/day.
+6,OPERATING_ROOM,Operating rooms,RESOURCE,HOURS,1,Available and used operating-room hours per department/day.
+7,DIAGNOSTIC_IMAGING,Diagnostic imaging,RESOURCE,HOURS,1,Available and used imaging hours per department/day.

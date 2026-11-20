@@ -1,0 +1,7 @@
+﻿dept_id,dept_code,dept_name,department_level,parent_dept_id,department_group,active_flag,occupancy_warning_threshold_pct,threshold_effective_from,threshold_effective_to,threshold_scope,threshold_owner,threshold_approval_status,created_at
+1,HRA-HOSP,Aarohan Multispecialty Hospital - Ghaziabad,HOSPITAL,,Facility,1,85.0,2025-11-03,,HOSPITAL,Ananya Verma - Hospital Operations Lead,ASSUMED,2025-01-01 00:00:00
+2,GEN-MED,General Medicine,DEPARTMENT,1,Medicine,1,85.0,2025-11-03,,DEPARTMENT,Raghav Sharma - General Medicine Head,ASSUMED,2025-01-01 00:00:00
+3,GEN-SUR,General Surgery,DEPARTMENT,1,Surgery,1,85.0,2025-11-03,,DEPARTMENT,Meera Nair - General Surgery Head,ASSUMED,2025-01-01 00:00:00
+4,ORTHO,Orthopaedics,DEPARTMENT,1,Orthopaedics,1,85.0,2025-11-03,,DEPARTMENT,Kabir Malhotra - Orthopaedics Head,ASSUMED,2025-01-01 00:00:00
+5,PEDIA,Paediatrics,DEPARTMENT,1,Paediatrics,1,85.0,2025-11-03,,DEPARTMENT,Ishita Rao - Paediatrics Head,ASSUMED,2025-01-01 00:00:00
+6,OBGYN,Obstetrics and Gynaecology,DEPARTMENT,1,Obstetrics & Gynaecology,1,85.0,2025-11-03,,DEPARTMENT,Aarav Kapoor - OBGYN Head,ASSUMED,2025-01-01 00:00:00

@@ -1,0 +1,98 @@
+HRA-001 | HOSPITAL RESOURCE UTILIZATION ANALYSIS
+STEP 10 — SYNTHETIC DATA GENERATION & VALIDATION REPORT
+========================================================================
+Generated at: 2026-11-20T12:01:50
+Random seed: 42
+Data period: 2025-11-03 to 2026-11-02 (365 days; Step 8 baseline period)
+Facility: Aarohan Multispecialty Hospital - Ghaziabad (fictional)
+Data policy: synthetic records only; no patient names or real personal data.
+
+1. RAW EXPORT ROW COUNTS (intentional data-quality issues retained)
+------------------------------------------------------------------------
+departments: 6 raw rows
+utilization_categories: 7 raw rows
+patient_encounters: 241 raw rows
+daily_utilization: 12,777 raw rows
+
+2. CLEAN SQLITE ROW COUNTS (after quality handling)
+------------------------------------------------------------------------
+departments: 6 rows
+utilization_categories: 7 rows
+patient_encounters: 240 rows
+daily_utilization: 12,775 rows
+database departments: 6
+database utilization_categories: 7
+database patient_encounters: 240
+database daily_utilization: 12,775
+database view_rows: 1,825
+database view_columns: 40
+
+3. INJECTED DATA-QUALITY ISSUES IN RAW CSV/XLSX
+------------------------------------------------------------------------
+Missing used_amount values: 281 / 12,775 unique planned daily facts = 2.20% (2 duplicate raw rows are excluded from this base-rate denominator)
+Duplicate rows: 3 (2 daily_utilization + 1 patient_encounters)
+Extreme numeric outliers: 6 (used_amount > 150% of available_amount)
+Affected tables: daily_utilization (289), patient_encounters (1)
+
+4. CLEANING ACTIONS APPLIED BEFORE SQLITE LOAD
+------------------------------------------------------------------------
+Missing values reconstructed deterministically: 281
+Duplicate rows removed: 3
+Extreme outliers restored from deterministic seed-42 source: 6
+Valid OPEN encounters retain NULL discharge_date by design; these are not missing-data defects.
+Ordinary utilisation above 100% but not above 150% is retained as a potential operational signal.
+
+5. SQLITE INTEGRITY & VALIDATION
+------------------------------------------------------------------------
+PRAGMA foreign_keys on generator connection: ON
+PRAGMA foreign_keys on reopened application connection: ON
+Application connection rejects invalid FK insert: True
+PRAGMA foreign_key_check issue count: 0
+Exact schema column names match Step 8: True
+Declared SQLite types and PKs match Step 8: True
+SQLite FK definitions match Step 8: True
+Note: SQLite foreign-key enforcement is connection-specific and is not persisted as a database-file setting; use src/db.py:get_connection() for every application connection.
+Joined view column count: 40 (expected 40)
+Joined view row count: 1,825 (expected 1,825)
+Range/business check threshold_pct: 0 issue(s)
+Range/business check negative_amounts: 0 issue(s)
+Range/business check invalid_category_group: 0 issue(s)
+Range/business check invalid_encounter_status: 0 issue(s)
+Range/business check bed_overcapacity_after_clean: 0 issue(s)
+
+6. REALISTIC PATTERNS BUILT INTO THE DATA
+------------------------------------------------------------------------
+PATTERN-01: General Medicine occupancy is higher during the July–September 2026 monsoon period.
+PATTERN-02: Paediatrics has a winter rise in December 2025 and January 2026.
+PATTERN-03: Orthopaedics occupancy is higher on Saturdays and Sundays (injury demand pattern).
+PATTERN-04: General Surgery and operating-room utilisation peak Tuesday–Thursday and reduce on weekends.
+PATTERN-05: Higher bed occupancy is associated with higher staff-hours utilisation.
+Verified pattern metrics (averages unless otherwise stated):
+- General Medicine monsoon (Jul-Sep 2026) 88.80% vs other months 78.23%.
+- Paediatrics winter (Dec 2025-Jan 2026) 76.77% vs other months 62.99%.
+- Orthopaedics weekends 75.83% vs weekdays 66.33%.
+- General Surgery operating-room Tue-Thu 69.49% vs other days 38.16%.
+- Occupancy vs total staff-hours utilisation Pearson correlation: 0.638.
+These are synthetic patterns intentionally created for analytical discovery; they are not claims about a real hospital.
+
+SCHEMA RECONCILIATION: The canonical Step 8 Tables_Summary has been corrected to report 7 daily_utilization columns, matching its data dictionary and CREATE TABLE DDL. The generator follows the corrected canonical design.
+
+7. SAMPLE-ROW REVIEW
+------------------------------------------------------------------------
+The first 10 rows of each raw table are included in the corresponding workbook sheet and CSV.
+They were generated with consistent codes, ISO dates, category values, IDs and fictional department labels.
+The workbook was exported with a separate Data_Quality_Issues sheet to make intentional defects auditable.
+
+8. ACCEPTANCE SUMMARY
+------------------------------------------------------------------------
+Expected master rows: departments=6, utilization_categories=7; actual=6, 7
+Expected main fact rows: patient_encounters=240; actual=240
+Expected daily fact rows: daily_utilization=12,775; actual=12775
+Foreign key check: PASS
+Range/business checks: PASS
+Schema column-name match: PASS
+Schema type/PK match: PASS
+Schema FK-definition match: PASS
+Application FK enforcement: PASS
+40-column view: PASS
+OVERALL DATABASE ACCEPTANCE: PASS
